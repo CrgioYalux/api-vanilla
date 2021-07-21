@@ -53,3 +53,51 @@ export const createProduct = async (
 		console.error(error);
 	}
 };
+
+export const deleteProduct = async (response: ServerResponse, id: string) => {
+	try {
+		const product = await ProductUtils.GetOne(id);
+		if (!product) {
+			response.writeHead(404, { 'Content-Type': 'application/json' });
+			return response.end(
+				JSON.stringify({ message: 'The product does not exist' }),
+			);
+		} else {
+			await ProductUtils.Delete(id);
+			response.writeHead(200, { 'Content-Type': 'application/json' });
+			return response.end(
+				JSON.stringify({ message: 'Product deleted correctly' }),
+			);
+		}
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const updateProduct = async (
+	request: IncomingMessage,
+	response: ServerResponse,
+	id: string,
+) => {
+	try {
+		const product = await ProductUtils.GetOne(id);
+		if (!product) {
+			response.writeHead(404, { 'Content-Type': 'application/json' });
+			return response.end(
+				JSON.stringify({ message: 'The product does not exist' }),
+			);
+		} else {
+			const { name, description, price } = await getPostData(request);
+			const newProduct = {
+				name: name || product.name,
+				description: description || product.description,
+				price: price || product.price,
+			};
+			await ProductUtils.Update({ id, ...newProduct });
+			response.writeHead(200, { 'Content-Type': 'application/json' });
+			return response.end(JSON.stringify(newProduct));
+		}
+	} catch (error) {
+		console.error(error);
+	}
+};

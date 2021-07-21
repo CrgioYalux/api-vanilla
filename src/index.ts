@@ -5,6 +5,8 @@ import {
 	getAllProducts,
 	getOneProduct,
 	createProduct,
+	deleteProduct,
+	updateProduct,
 } from './Product/ProductController';
 import RouteTo from './routes';
 
@@ -19,7 +21,9 @@ const server = createServer((request, response) => {
 	} else if (RouteTo.POST(request)) {
 		createProduct(request, response);
 	} else if (RouteTo.PUT(request)) {
+		updateProduct(request, response, id);
 	} else if (RouteTo.DELETE(request)) {
+		deleteProduct(response, id);
 	} else {
 		readFile(join('src', 'views', 'PAGE404.html'), (err, page) => {
 			response.writeHead(404, { 'Content-Type': 'text/html' });

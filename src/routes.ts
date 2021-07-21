@@ -18,11 +18,17 @@ export const POST = (req: IncomingMessage): boolean => {
 };
 
 export const PUT = (req: IncomingMessage): boolean => {
-	return req.url === RouteToProducts && req.method === 'PUT';
+	return (
+		Boolean(req.url?.match(/\/api\/products\/([a-z0-9-]+)/)) &&
+		req.method === 'PUT'
+	);
 };
 
 export const DELETE = (req: IncomingMessage): boolean => {
-	return req.url === RouteToProducts && req.method === 'DELETE';
+	return (
+		Boolean(req.url?.match(/\/api\/products\/([a-z0-9-]+)/)) &&
+		req.method === 'DELETE'
+	);
 };
 
 const RouteTo = {

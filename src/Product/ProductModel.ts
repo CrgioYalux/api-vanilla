@@ -33,8 +33,8 @@ export const Create = ({
 	name: string;
 	description: string;
 	price: number;
-}) => {
-	return new Promise((resolve, reject) => {
+}): Promise<ProductType> => {
+	return new Promise<ProductType>((resolve, reject) => {
 		const newProduct: ProductType = { name, description, price, id: v4() };
 		products.push(newProduct);
 		writeDataToFile(join(__dirname, '..', 'data', 'products.json'), products);
@@ -42,10 +42,32 @@ export const Create = ({
 	});
 };
 
+export const Delete = (id: string) => {
+	return new Promise((resolve, reject) => {
+		const newProducts = products.filter(
+			(product: ProductType) => product.id !== id,
+		);
+		writeDataToFile(
+			join(__dirname, '..', 'data', 'products.json'),
+			newProducts,
+		);
+	});
+};
+
+export const Update = (product: ProductType) => {
+	return new Promise<ProductType>((resolve, reject) => {
+		const index: number = products.findIndex((p) => p.id === product.id);
+		products[index] = product;
+		writeDataToFile(join(__dirname, '..', 'data', 'products.json'), products);
+	});
+};
+
 const ProductUtils = {
 	GetAll,
 	GetOne,
 	Create,
+	Delete,
+	Update,
 };
 
 export default ProductUtils;

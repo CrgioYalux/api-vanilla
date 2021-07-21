@@ -4,7 +4,7 @@ import { getPostData } from '../utils/getPostData';
 
 export const getAllProducts = async (response: ServerResponse) => {
 	try {
-		let products = await ProductUtils.getAll();
+		let products = await ProductUtils.GetAll();
 		response.writeHead(200, { 'Content-Type': 'application/json' });
 		return response.end(JSON.stringify(products));
 	} catch (error) {
@@ -14,7 +14,7 @@ export const getAllProducts = async (response: ServerResponse) => {
 
 export const getOneProduct = async (response: ServerResponse, id: string) => {
 	try {
-		const product = await ProductUtils.getOne(id);
+		const product = await ProductUtils.GetOne(id);
 		if (!product) {
 			response.writeHead(404, { 'Content-Type': 'application/json' });
 			return response.end(JSON.stringify({ message: 'Product not found' }));
@@ -41,7 +41,7 @@ export const createProduct = async (
 				}),
 			);
 		} else {
-			const newProduct = await ProductUtils.create({
+			const newProduct = await ProductUtils.Create({
 				name,
 				description,
 				price,

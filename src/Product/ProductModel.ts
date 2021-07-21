@@ -10,22 +10,22 @@ export type ProductType = {
 	price: number;
 };
 
-const posts: ProductType[] = data;
+const products: ProductType[] = data;
 
-export const getAll = (): Promise<ProductType[]> => {
+export const GetAll = (): Promise<ProductType[]> => {
 	return new Promise<ProductType[]>((resolve, reject) => {
-		resolve(posts);
+		resolve(products);
 	});
 };
 
-export const getOne = (id: string): Promise<ProductType | undefined> => {
+export const GetOne = (id: string): Promise<ProductType | undefined> => {
 	return new Promise<ProductType | undefined>((resolve, reject) => {
-		const post = posts.find((p: ProductType) => p.id === id);
+		const post = products.find((p: ProductType) => p.id === id);
 		resolve(post);
 	});
 };
 
-export const create = ({
+export const Create = ({
 	name,
 	description,
 	price,
@@ -36,16 +36,16 @@ export const create = ({
 }) => {
 	return new Promise((resolve, reject) => {
 		const newProduct: ProductType = { name, description, price, id: v4() };
-		posts.push(newProduct);
-		writeDataToFile(join(__dirname, '..', 'data', 'products.json'), posts);
+		products.push(newProduct);
+		writeDataToFile(join(__dirname, '..', 'data', 'products.json'), products);
 		resolve(newProduct);
 	});
 };
 
 const ProductUtils = {
-	getAll,
-	getOne,
-	create,
+	GetAll,
+	GetOne,
+	Create,
 };
 
 export default ProductUtils;

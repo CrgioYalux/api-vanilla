@@ -1,3 +1,8 @@
 /node_modules/  
 
 /testing/
+
+# duh
+dbinfo.txt
+
+.env

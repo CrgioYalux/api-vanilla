@@ -1,13 +1,15 @@
 import { createServer } from 'http';
 import { readFile } from 'fs';
 import { join } from 'path';
+import { connectToDB } from './mongoDB/connection';
+
 import {
+	updateProduct,
+	getProductById,
 	getAllProducts,
-	getOneProduct,
 	createProduct,
 	deleteProduct,
-	updateProduct,
-} from './Product/ProductController';
+} from './mongoDB/services/ProductServices';
 import RouteTo from './routes';
 
 const PORT = process.env.PORT || 5000;
@@ -17,7 +19,7 @@ const server = createServer((request, response) => {
 	if (RouteTo.GET_ALL(request)) {
 		getAllProducts(response);
 	} else if (RouteTo.GET_ONE(request)) {
-		getOneProduct(response, id);
+		getProductById(response, id);
 	} else if (RouteTo.POST(request)) {
 		createProduct(request, response);
 	} else if (RouteTo.PUT(request)) {
@@ -33,6 +35,10 @@ const server = createServer((request, response) => {
 	}
 });
 
-server.listen(PORT, () => {
-	console.log(`Server listening on port ${PORT}`);
-});
+connectToDB()
+	?.then(() => {
+		server.listen(PORT, () => {
+			console.log(`Server listening on port ${PORT}`);
+		});
+	})
+	.catch(console.error);

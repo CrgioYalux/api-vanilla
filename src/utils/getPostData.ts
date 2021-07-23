@@ -17,6 +17,12 @@ export const getPostData = (
 			});
 			request.on('end', () => {
 				resolve(JSON.parse(body));
+				// const parsedUrl = querystring.parse(body);
+				// const product: ExpectedData = {
+				// 	name: parsedUrl.name?.toString(),
+				// 	description: parsedUrl.description?.toString(),
+				// 	price: Number(parsedUrl.price),
+				// }
 			});
 		} catch (error) {
 			console.error(error);

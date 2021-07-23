@@ -1,5 +1,5 @@
 import { Product } from '../models/ProductModel';
-import { ProductType } from '../../Product/ProductModel';
+import { ProductType } from '../models/ProductModel';
 import { ServerResponse, IncomingMessage } from 'http';
 import { getPostData } from '../../utils/getPostData';
 import { v4 } from 'uuid';

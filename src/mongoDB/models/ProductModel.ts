@@ -1,5 +1,11 @@
 import { Schema, model, Model } from 'mongoose';
-import { ProductType } from '../../Product/ProductModel';
+
+export type ProductType = {
+	id: string;
+	name: string;
+	description: string;
+	price: number;
+};
 
 // Schemes creation
 

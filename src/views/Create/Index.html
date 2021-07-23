@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Create</title>
+	</head>
+	<body>
+		<form action="/api/products" method="POST" id="createProductForm">
+			<input
+				type="text"
+				name="name"
+				id="nameInput"
+				placeholder="enter the product's name"
+				required
+			/>
+			<input
+				type="text"
+				name="description"
+				id="descriptionInput"
+				placeholder="enter the product's description"
+				required
+			/>
+			<input
+				type="number"
+				name="price"
+				id="priceInput"
+				placeholder="enter the product's price"
+				required
+			/>
+			<button type="submit">create</button>
+			<script>
+				window.onload = function () {
+					const createProductForm =
+						document.getElementById('createProductForm');
+
+					createProductForm.onsubmit = function (event) {
+						event.preventDefault();
+
+						const nameInput = document.getElementById('nameInput');
+						const descriptionInput =
+							document.getElementById('descriptionInput');
+						const priceInput = document.getElementById('priceInput');
+
+						if (nameInput.value && descriptionInput.value && priceInput.value) {
+							const product = {
+								name: nameInput.value,
+								description: descriptionInput.value,
+								price: priceInput.value,
+							};
+
+							const request = new XMLHttpRequest();
+							request.open('POST', '/api/products', true);
+							request.setRequestHeader('Content-Type', 'application/json');
+							request.send(JSON.stringify(product));
+
+							nameInput.value = '';
+							descriptionInput.value = '';
+							priceInput.value = '';
+						}
+					};
+				};
+			</script>
+		</form>
+	</body>
+</html>

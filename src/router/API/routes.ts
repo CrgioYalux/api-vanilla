@@ -1,10 +1,9 @@
 import { IncomingMessage } from 'http';
 
-const RouteToProducts: string = '/api/products';
-const RouteToProductsView: string = '/public';
+const BASEPATH: string = '/api/products';
 
 export const GET_ALL = (request: IncomingMessage): boolean => {
-	return request.url === RouteToProducts && request.method === 'GET';
+	return request.url === BASEPATH && request.method === 'GET';
 };
 
 export const GET_ONE = (request: IncomingMessage): boolean => {
@@ -15,7 +14,7 @@ export const GET_ONE = (request: IncomingMessage): boolean => {
 };
 
 export const POST = (request: IncomingMessage): boolean => {
-	return request.url === RouteToProducts && request.method === 'POST';
+	return request.url === BASEPATH && request.method === 'POST';
 };
 
 export const PUT = (request: IncomingMessage): boolean => {
@@ -32,27 +31,12 @@ export const DELETE = (request: IncomingMessage): boolean => {
 	);
 };
 
-export const VIEW_GET_ALL = (request: IncomingMessage): boolean => {
-	return (
-		request.url === `${RouteToProductsView}/products` &&
-		request.method === 'GET'
-	);
-};
-
-export const VIEW_POST = (request: IncomingMessage): boolean => {
-	return (
-		request.url === `${RouteToProductsView}/create` && request.method === 'GET'
-	);
-};
-
 const RouteTo = {
 	GET_ALL,
 	GET_ONE,
 	POST,
 	PUT,
 	DELETE,
-	VIEW_GET_ALL,
-	VIEW_POST,
 };
 
 export default RouteTo;

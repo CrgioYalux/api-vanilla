@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 import { connectToDB } from './mongoDB/connection';
-import { router } from './router/router';
+import { router } from './router';
 const PORT = process.env.PORT || 5000;
 
 const server = createServer(router);

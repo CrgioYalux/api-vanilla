@@ -6,3 +6,5 @@
 dbinfo.txt
 
 .env
+
+/dist/
